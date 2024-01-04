@@ -1,0 +1,55 @@
+<!-- <mat-dialog-content>
+    <h2 mat-dialog-title>Login</h2>
+    <form>
+      <mat-form-field>
+        <input matInput placeholder="Username" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" required>
+      </mat-form-field>
+      <button mat-button color="primary" type="submit">Log In</button>
+    </form>
+  </mat-dialog-content> -->
+  <form class="border p-3 rounded-3" [formGroup] = "loginform" (ngSubmit)="loginsubmitted()">
+    <div class="row g-0">
+        <div class="col text-center p-2 mb-3 bg-light">
+            <span class="fs-3">Login</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mb-3">
+            <label for="mail" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="mail" formControlName = "userName"> 
+            <div class="form-text text-danger" *ngIf="UserName.errors?.['required'] && (UserName.touched || UserName.dirty)">
+                Email is required.
+            </div>
+            <div class="form-text text-danger" *ngIf="UserName.errors?.['email'] && (UserName.touched || UserName.dirty)">
+                Email is Invalid.</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mb-3">
+            <label for="pwd" class="form-label">Password</label>
+            <input type="password" class="form-control" id="pwd" formControlName = "password"> 
+            <div class="form-text text-danger" *ngIf="Password.errors?.['required'] && (Password.touched || Password.dirty)">
+                Password is required.
+            </div>
+            <div class="form-text text-danger" *ngIf="Password.errors?.['maxlength'] || Password.errors?.['minlength'] && (Password.touched )">
+                Password should be between 8 and 12 characters.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="d-grid">
+                <button type="submit" [disabled]="loginform.invalid" class="btn btn-primary" (click)="closeDialog()">Login</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mt-2">
+            <span class="me-2">Don't have an Account?</span> 
+            <a (click)="openSignup()">signUp</a>
+        </div>
+    </div>
+</form>

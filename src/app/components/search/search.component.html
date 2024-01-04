@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <div class=" search-com row">
+    <div class="col-md-3 col-sm-12" >
+
+    </div>
+    <div class="col-md-6 col-sm-12 rounded-3" >
+      <h1>Book Your Luxury Here</h1>
+      <div class="search-bar">
+        <mat-form-field class="full-width">
+          <mat-label>Search</mat-label>
+          <input type="text"  placeholder="City" aria-label="City"
+          [formControl]="searchbar"
+          matInput [matAutocomplete]="auto" >
+          <mat-icon matSuffix>search</mat-icon>
+          <mat-autocomplete #auto="matAutocomplete">
+            <!-- <mat-option *ngFor="let option of cityList" [value]="option.cityName">
+              {{option.cityName}}
+            </mat-option> -->
+            <mat-option *ngFor="let option of formCityList | async" (onSelectionChange)="setLocation(option)" [value]="option" >
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <!-- <div class="search-content border p-3 rounded-3"> -->
+      <mat-form-field class="full-width">
+        <mat-label>Enter CheckIn and CheckOut Time</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Check In" [(ngModel)]="checkInDate" [min]="minDate">
+          <input matEndDate placeholder="Check Out" [(ngModel)]="checkOutDate" [min]="minDate">
+        </mat-date-range-input>
+        <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <div class="people-count">
+        <mat-form-field>
+          <mat-icon>supervisor_account</mat-icon>
+          <mat-label>Adults</mat-label>
+          <input matInput type="number" [(ngModel)]="numberOfAdults">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-icon>child_care</mat-icon>
+          <mat-label>Number of Childrens</mat-label>
+          <input matInput type="number" [(ngModel)]="numberOfChildren">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="full-width">
+        <mat-label>Room Type</mat-label>
+        <mat-select >
+          <mat-option value="room" *ngFor="let room of dbroomList" [(ngModel)]="roomType" (onSelectionChange)="setRoomType(room)" >
+            {{room}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- (selectionChange)="setAmenities()" -->
+      <mat-form-field class="full-width">
+        <mat-label>Amenities</mat-label>
+        <mat-select [formControl]="amenities" multiple [(ngModel)]="selectedAmenities" >
+          <mat-select-trigger >
+            {{amenities.value?.[0] || ''}}
+            <span *ngIf="(amenities.value?.length || 0) > 1" class="additional-selection">
+              (+{{(amenities.value?.length || 0) - 1}} {{amenities.value?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger >
+          <mat-option *ngFor="let amenity of dbamenitiesList"  [value]="amenity">
+            {{amenity}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="Basic" class="bookNow" routerLink="/hotels" (click)="searchHotelsubmitted()" >
+        <mat-icon>confirmation_number</mat-icon>
+        Book Now
+      </button>
+    </div>
+  </div>
+</div>

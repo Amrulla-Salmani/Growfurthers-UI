@@ -1,0 +1,95 @@
+<div class="container-fluid g-0">
+    <div class="row">
+        <div class="col-md-12 search-content">
+            <mat-form-field >
+                <mat-label>Location</mat-label>
+                <input type="text" placeholder="Search" aria-label="Location" matInput [matAutocomplete]="auto" [value]="location" [disabled]="true">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>CheckIn-CheckOut</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="In" [(ngModel)]="checkInDate">
+                    <input matEndDate placeholder="Out" [(ngModel)]="checkOutDate">
+                </mat-date-range-input>
+                <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+            <mat-form-field>
+                <!-- <mat-icon>supervisor_account</mat-icon> -->
+                <mat-label>Adults</mat-label>
+                <input matInput type="number" [(ngModel)]="numberOfAdults">
+            </mat-form-field>
+            <mat-form-field>
+                <!-- <mat-icon>child_care</mat-icon> -->
+                <mat-label>Number of Childrens</mat-label>
+                <input matInput type="number" [(ngModel)]="numberOfChildren">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Amenities</mat-label>
+                <mat-select multiple [(ngModel)]="selectedAmenities" [value]="selectedAmenities" >
+                  <!-- <mat-select-trigger> -->
+                    <!-- {{toppings.value?.[0] || ''}} -->
+                    <!-- <span *ngIf="(toppings.value?.length || 0) > 1" class="additional-selection">
+                      (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+        
+                    </span> -->
+                  <!-- </mat-select-trigger> -->
+                  <mat-option *ngFor="let amenity of amenitiesList" [value]="amenity">
+                    {{ amenity }}
+                  </mat-option>
+                </mat-select>
+                <!-- <mat-select multiple [(ngModel)]="selectedAmenities">
+                    <mat-option *ngFor="let amenity of amenitiesList" [value]="amenity">
+                      {{ amenity }}
+                    </mat-option>
+                  </mat-select> -->
+              </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row hotel-list"  *ngFor="let item of hotelsList">
+        <div class="col-md-2"></div>
+        <div class="card col-md-8">
+            <div class="row list-content">
+                <div class="col-md-4">
+                    <img src={{item.imagePath}} class="img-fluid rounded-start" alt="..">
+                    <!-- <img src="" class="img-fluid rounded-start" alt=".."> -->
+                </div>
+                <div class="col-md-4">
+                    <div class="card-body ">
+                        <h3 class="card-title">{{item.hotelName}}</h3>
+                        <p class="card-text"> Address : {{item.address}}</p>
+                        <p class="card-text">Phone No : {{item.phoneNo}}</p>
+                        <p class="card-text"> checkIn : {{item.checkInTime}}</p>
+                        <p class="card-text"> checkOut : {{item.checkOutTime}}</p>
+                        <p class="card-text"> Mail Id : {{item.email}}</p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                            Rating:
+                            <span *ngFor="let starClass of generateStarArray(item.rating)" [ngClass]="starClass">
+                              &#9733; <!-- Unicode character for a filled star -->
+                            </span>
+                        </small>
+                          </p>
+                        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    
+                    <!-- <button mat-raised-button color="Basic" class="bookNow" (click)="!getLoginstatus() && openDialog()">
+                        <mat-icon>confirmation_number</mat-icon>
+                        Book Now
+                      </button> -->
+                      
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            
+        </div>
+    </div>
+</div>
